@@ -1,0 +1,83 @@
+{
+  "index_patterns": [
+    "ad-stats-*"
+  ],
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 1
+    }
+  },
+  "aliases": {
+    "ad-stats": {}
+  },
+  "mappings": {
+    "_source": {
+      "enabled": true
+    },
+    "dynamic_templates": [
+      {
+        "metric_longs": {
+          "path_match": "metric.*",
+          "match_mapping_type": "long",
+          "mapping": {
+            "type": "long",
+            "index": false
+          }
+        }
+      },
+      {
+        "metric_others": {
+          "path_match": "metric.*",
+          "match_mapping_type": "*",
+          "mapping": {
+            "type": "{dynamic_type}",
+            "index": false,
+            "doc_values": false,
+            "enabled": false
+          }
+        }
+      },
+      {
+        "dimension_keywords": {
+          "path_match": "dimension.*",
+          "match_mapping_type": "string",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      },
+      {
+        "dimension_others": {
+          "path_match": "dimension.*",
+          "match_mapping_type": "*",
+          "mapping": {
+            "type": "{dynamic_type}",
+            "index": false,
+            "doc_values": false,
+            "enabled": false
+          }
+        }
+      }
+    ],
+    "dynamic": false,
+    "properties": {
+      "timestamp": {
+        "type": "date",
+        "format": "strict_date_optional_time||epoch_millis"
+      },
+      "metric": {
+        "type": "object",
+        "dynamic": true,
+        "properties": {
+        }
+      },
+      "dimension": {
+        "type": "object",
+        "dynamic": true,
+        "properties": {
+        }
+      }
+    }
+  }
+}
