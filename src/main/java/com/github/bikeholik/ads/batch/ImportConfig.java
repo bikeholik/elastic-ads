@@ -3,7 +3,6 @@ package com.github.bikeholik.ads.batch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.bikeholik.ads.config.InfrastructureComponentsConfig;
 import com.github.bikeholik.ads.indexer.Indexer;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -16,6 +15,7 @@ import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.item.file.transform.LineTokenizer;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 @Configuration
 @EnableConfigurationProperties(ImportProperties.class)
-@Slf4j
+@ConditionalOnProperty(value = "import.enabled", matchIfMissing = true)
 class ImportConfig {
 
     @Bean
