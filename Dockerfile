@@ -11,4 +11,4 @@ RUN mkdir /app
 
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/elastic-ads.jar
 
-ENTRYPOINT ["java", "-jar", "/app/elastic-ads.jar"]
+ENTRYPOINT ["java", "-Xmx300m", "-Xss512k", "-XX:CICompilerCount=2", "-jar", "/app/elastic-ads.jar"]
