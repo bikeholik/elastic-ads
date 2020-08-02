@@ -36,6 +36,7 @@ class ImportConfig {
         csvFileReader.setResource(new UrlResource(importProperties.getUrl()));
         csvFileReader.setLinesToSkip(1);
         csvFileReader.setLineMapper(statsLineMapper(objectMapper));
+        csvFileReader.setMaxItemCount(importProperties.getMaxItemsCount());
         return csvFileReader;
     }
 

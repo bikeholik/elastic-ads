@@ -10,4 +10,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 class ImportProperties {
     private String url;
     private int chunkSize = 128;
+    private int maxItemsCount = Integer.MAX_VALUE;
 }
